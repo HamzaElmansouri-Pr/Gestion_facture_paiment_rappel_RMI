@@ -7,6 +7,7 @@
 <h:body>
     <h3>Bienvenue, #{loginBean.utilisateur.username} !</h3>
     <h4>Votre rôle : #{loginBean.utilisateur.role}</h4>
+    <h3><a href="client.xhtml">Gestion des Clients</a></h3>
 
     <h:form>
         <h:commandButton value="Se déconnecter" action="#{loginBean.logout}" />
