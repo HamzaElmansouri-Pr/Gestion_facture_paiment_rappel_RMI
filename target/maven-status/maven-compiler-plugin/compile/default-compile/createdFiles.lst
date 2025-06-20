@@ -1,0 +1,6 @@
+com\mycompany\sdr\resources\JakartaEE10Resource.class
+com\example\entities\Utilisateur.class
+com\example\entities\Utilisateur$Role.class
+com\example\beans\LoginBean.class
+com\mycompany\sdr\JakartaRestConfiguration.class
+com\example\sessions\UtilisateurFacade.class
