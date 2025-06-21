@@ -31,8 +31,7 @@ public class DashboardBean implements Serializable {
             clientCount = clientFacade.countClients();
             articleCount = articleFacade.countArticles(); // Utilisation de la nouvelle méthode
             factureCount = factureFacade.countFactures();
-            lastFactures = factureFacade.getLast3Factures();
-            
+lastFactures = factureFacade.getLast3Factures();            
             // Debug : afficher les valeurs dans les logs
             System.out.println("=== DASHBOARD DEBUG ===");
             System.out.println("Client count: " + clientCount);

@@ -13,9 +13,10 @@ public class Client {
     private String email;
     private String adresse;
     private String telephone;
-    
-    @Column(name = "id_user", nullable = false)
-    private int idUser;
+
+    @ManyToOne
+    @JoinColumn(name = "id_user")
+    private Utilisateur utilisateur;
 
     // Getters & Setters
     public int getId() { return id; }
@@ -32,7 +33,7 @@ public class Client {
 
     public String getTelephone() { return telephone; }
     public void setTelephone(String telephone) { this.telephone = telephone; }
-    
-    public int getIdUser() { return idUser; }
-    public void setIdUser(int idUser) { this.idUser = idUser; }
+
+    public Utilisateur getUtilisateur() { return utilisateur; }
+    public void setUtilisateur(Utilisateur utilisateur) { this.utilisateur = utilisateur; }
 }

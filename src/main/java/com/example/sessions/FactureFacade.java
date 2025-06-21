@@ -23,9 +23,29 @@ public class FactureFacade {
         return em.createQuery("SELECT COUNT(f) FROM Facture f", Long.class).getSingleResult();
     }
 
-    public List<Facture> getLast3Factures() {
-        return em.createQuery("SELECT f FROM Facture f ORDER BY f.dateFacture DESC", Facture.class)
-                 .setMaxResults(3)
-                 .getResultList();
+public List<Facture> getLast3Factures() {
+    return em.createQuery("SELECT f FROM Facture f ORDER BY f.dateFacture DESC", Facture.class)
+             .setMaxResults(3)
+             .getResultList();
+}
+
+    public void create(Facture facture) {
+        em.persist(facture);
+    }
+
+    public void update(Facture facture) {
+        em.merge(facture);
+    }
+
+    public void delete(Facture facture) {
+        em.remove(em.merge(facture));
+    }
+
+    public Facture find(int id) {
+        return em.find(Facture.class, id);
+    }
+
+    public List<Facture> findAll() {
+        return em.createQuery("SELECT f FROM Facture f", Facture.class).getResultList();
     }
 }
