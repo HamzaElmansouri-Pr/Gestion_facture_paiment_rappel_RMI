@@ -1,0 +1,31 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.example.sessions;
+
+import com.example.entities.Facture;
+import jakarta.ejb.Stateless;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import java.util.List;
+
+/**
+ *
+ * @author Yassine
+ */
+@Stateless
+public class FactureFacade {
+    @PersistenceContext(unitName = "facture_dbPU")
+    private EntityManager em;
+
+    public long countFactures() {
+        return em.createQuery("SELECT COUNT(f) FROM Facture f", Long.class).getSingleResult();
+    }
+
+    public List<Facture> getLast3Factures() {
+        return em.createQuery("SELECT f FROM Facture f ORDER BY f.dateFacture DESC", Facture.class)
+                 .setMaxResults(3)
+                 .getResultList();
+    }
+}

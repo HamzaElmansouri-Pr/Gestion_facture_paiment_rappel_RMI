@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="jakarta.faces.core">
+<h:head>
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 40px;
+        }
+
+        h2 {
+            color: #2c3e50;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
+            margin: 8px 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin-top: 10px;
+            background-color: #fff;
+            box-shadow: 0 0 10px #ccc;
+        }
+
+        th, td {
+            padding: 10px 15px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+
+        .nav-links li {
+            margin: 5px 0;
+        }
+
+        .logout-button {
+            margin-top: 20px;
+        }
+    </style>
+</h:head>
+<h:body>
+    <h3>Welcome, #{loginBean.utilisateur.username}!</h3>
+    <h4>Your role: #{loginBean.utilisateur.role}</h4>
+
+    <h2>Statistics</h2>
+    <ul>
+        <li>Number of clients: #{dashboardBean.clientCount}</li>
+        <li>Number of articles: #{dashboardBean.articleCount}</li>
+        <li>Number of invoices: #{dashboardBean.factureCount}</li>
+    </ul>
+
+    <h2>Latest Invoices</h2>
+    <h:dataTable value="#{dashboardBean.lastFactures}" var="f">
+        <h:column>
+            <f:facet name="header">ID</f:facet>
+            #{f.id}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Date</f:facet>
+            #{f.dateFacture}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Status</f:facet>
+            #{f.etat}
+        </h:column>
+    </h:dataTable>
+
+    <h2>Navigation</h2>
+    <ul class="nav-links">
+        <li><h:link value="Manage Clients" outcome="client.xhtml" /></li>
+        <li><h:link value="Manage Articles" outcome="article.xhtml" /></li>
+        <li><h:link value="View Invoices" outcome="facture.xhtml" /></li>
+        <li><h:link value="New Invoice" outcome="nouvellefacture.xhtml" /></li>
+    </ul>
+
+    <h:form>
+        <h:commandButton styleClass="logout-button" value="Logout" action="#{loginBean.logout}" />
+    </h:form>
+</h:body>
+</html>

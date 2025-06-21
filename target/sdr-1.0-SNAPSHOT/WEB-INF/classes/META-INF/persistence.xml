@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="3.0" xmlns="https://jakarta.ee/xml/ns/persistence">
+  <persistence-unit name="facture_dbPU" transaction-type="JTA">
+    <jta-data-source>jdbc/facture_db</jta-data-source>
+    <class>com.example.entities.Utilisateur</class>
+    <class>com.example.entities.Article</class>
+    <class>com.example.entities.Client</class>
+    <class>com.example.entities.Facture</class>
+    <properties>
+      <property name="jakarta.persistence.schema-generation.database.action" value="none"/>
+    </properties>
+  </persistence-unit>
+</persistence>
