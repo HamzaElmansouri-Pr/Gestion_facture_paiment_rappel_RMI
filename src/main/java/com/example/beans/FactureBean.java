@@ -21,7 +21,8 @@ public class FactureBean implements Serializable {
     private Integer clientId;
     private Integer articleId;
     private int quantite;
-
+    @Inject
+    private LoginBean loginBean;
     @Inject
     private FactureFacade factureFacade;
 
@@ -89,6 +90,18 @@ public class FactureBean implements Serializable {
 public void supprimerLigne(LigneFacture ligne) {
     facture.getLignes().remove(ligne);
 }
+
+
+public List<Facture> getUserFactures() {
+        Utilisateur utilisateur = loginBean.getUtilisateur();
+        if (utilisateur != null) {
+            Client client = clientFacade.findByUtilisateur(utilisateur);
+            if (client != null) {
+                return factureFacade.findByClient(client);
+            }
+        }
+        return null;
+    }
     // Getters / Setters
     public Facture getFacture() { return facture; }
     public Integer getClientId() { return clientId; }
@@ -99,4 +112,11 @@ public void supprimerLigne(LigneFacture ligne) {
     public void setQuantite(int quantite) { this.quantite = quantite; }
     public List<Client> getClients() { return clients; }
     public List<Article> getArticles() { return articles; }
+    public Client getClient() {
+        Utilisateur utilisateur = loginBean.getUtilisateur();
+        if (utilisateur != null) {
+            return clientFacade.findByUtilisateur(utilisateur);
+        }
+        return null;
+    }
 }

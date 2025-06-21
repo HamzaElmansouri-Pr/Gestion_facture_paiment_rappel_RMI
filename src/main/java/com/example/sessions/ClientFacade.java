@@ -1,8 +1,10 @@
 package com.example.sessions;
 
 import com.example.entities.Client;
+import com.example.entities.Utilisateur;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import java.util.List;
 
@@ -34,4 +36,13 @@ public class ClientFacade {
        public long countClients() {
         return em.createQuery("SELECT COUNT(c) FROM Client c", Long.class).getSingleResult();
     }
+    public Client findByUtilisateur(Utilisateur utilisateur) {
+    try {
+        return em.createQuery("SELECT c FROM Client c WHERE c.utilisateur = :utilisateur", Client.class)
+                 .setParameter("utilisateur", utilisateur)
+                 .getSingleResult();
+    } catch (NoResultException e) {
+        return null; // or handle differently
+    }
 }
+    } 

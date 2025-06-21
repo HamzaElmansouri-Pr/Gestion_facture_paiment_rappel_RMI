@@ -4,6 +4,7 @@
  */
 package com.example.sessions;
 
+import com.example.entities.Client;
 import com.example.entities.Facture;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
@@ -29,9 +30,11 @@ public List<Facture> getLast3Factures() {
              .getResultList();
 }
 
-    public void create(Facture facture) {
-        em.persist(facture);
-    }
+public void create(Facture facture) {
+    em.persist(facture);
+    em.flush();
+    em.refresh(facture);  // rafraîchit pour récupérer la date générée par la base
+}
 
     public void update(Facture facture) {
         em.merge(facture);
@@ -47,5 +50,10 @@ public List<Facture> getLast3Factures() {
 
     public List<Facture> findAll() {
         return em.createQuery("SELECT f FROM Facture f", Facture.class).getResultList();
+    }
+    public List<Facture> findByClient(Client client) {
+        return em.createQuery("SELECT f FROM Facture f WHERE f.client = :client", Facture.class)
+                 .setParameter("client", client)
+                 .getResultList();
     }
 }

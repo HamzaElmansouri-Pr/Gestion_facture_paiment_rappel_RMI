@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+    <title>Espace Utilisateur</title>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" 
+          rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-light: #eef2ff;
+            --primary-dark: #3a0ca3;
+            --secondary: #7209b7;
+            --accent-1: #f72585;
+            --accent-2: #4cc9f0;
+            --success: #38b000;
+            --danger: #ef233c;
+            --warning: #ff9e00;
+            --info: #4895ef;
+            --dark: #212529;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --gray-light: #e9ecef;
+            --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', 'Raleway', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            padding: 2.5rem;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--accent-1) 100%);
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--gray-light);
+        }
+        
+        .page-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            position: relative;
+            padding-left: 1rem;
+        }
+        
+        .page-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--primary), var(--accent-1));
+            border-radius: 4px;
+        }
+        
+        .welcome-message {
+            color: var(--dark);
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+            text-align: center;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            border-left: 4px solid var(--primary);
+            transition: var(--transition);
+        }
+        
+        .welcome-message:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .welcome-message b {
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+        
+        .section-title {
+            color: var(--primary-dark);
+            margin: 2rem 0 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .section-title i {
+            color: var(--primary);
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            text-decoration: none;
+            font-size: 0.95rem;
+            gap: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(67, 97, 238, 0.3);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger) 0%, var(--accent-1) 100%);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(239, 35, 60, 0.3);
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 2rem;
+            box-shadow: var(--card-shadow);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .data-table th {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 1.25rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .data-table th:first-child {
+            border-top-left-radius: 12px;
+        }
+        
+        .data-table th:last-child {
+            border-top-right-radius: 12px;
+        }
+        
+        .data-table td {
+            padding: 1.25rem;
+            border-bottom: 1px solid var(--gray-light);
+            background: white;
+        }
+        
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .data-table tr:hover td {
+            background: var(--primary-light);
+        }
+        
+        .action-link {
+            color: var(--primary);
+            text-decoration: none;
+            margin: 0 0.5rem;
+            transition: var(--transition);
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            background: rgba(67, 97, 238, 0.1);
+        }
+        
+        .action-link:hover {
+            color: white;
+            background: var(--primary);
+            text-decoration: none;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(67, 97, 238, 0.2);
+        }
+        
+        .status {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+            min-width: 100px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .status.paid {
+            background: rgba(56, 176, 0, 0.1);
+            color: var(--success);
+        }
+        
+        .status.pending {
+            background: rgba(255, 158, 0, 0.1);
+            color: var(--warning);
+        }
+        
+        .no-invoices {
+            text-align: center;
+            color: var(--gray);
+            font-style: italic;
+            padding: 3rem;
+            background: white;
+            border-radius: 12px;
+            margin: 1rem 0;
+            box-shadow: var(--card-shadow);
+        }
+        
+        .actions-col {
+            white-space: nowrap;
+        }
+        
+        .footer-actions {
+            display: flex;
+            justify-content: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--gray-light);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem;
+            }
+            
+            .data-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+        }
+    </style>
+</h:head>
+<h:body>
+    <div class="container">
+        <div class="header">
+            <h1 class="page-title">Espace Utilisateur</h1>
+        </div>
+        
+        <div class="welcome-message">
+            Bienvenue, <b>#{not empty factureBean.userFactures ? factureBean.userFactures[0].client.nom : 'Utilisateur'}</b> dans votre espace personnel !
+        </div>
+        
+        <h2 class="section-title">
+            <i class="fas fa-file-invoice"></i> Mes Factures
+        </h2>
+        
+        <h:form>
+            <h:dataTable value="#{factureBean.userFactures}" var="facture" styleClass="data-table">
+                <h:column>
+                    <f:facet name="header">Référence</f:facet>
+                    #FAC#{facture.id}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Date</f:facet>
+                    <h:outputText value="#{facture.dateFacture}">
+                        <f:convertDateTime pattern="dd MMMM yyyy" locale="fr" />
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Montant</f:facet>
+                    <h:outputText value="#{facture.montantTotal}">
+                        <f:convertNumber type="currency" currencySymbol="€" />
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">État</f:facet>
+                    <span class="status #{facture.etat == 'PAYEE' ? 'paid' : 'pending'}">
+                        #{facture.etat == 'PAYEE' ? 'Payée' : 'En attente'}
+                    </span>
+                </h:column>
+                <h:column styleClass="actions-col">
+                    <f:facet name="header">Actions</f:facet>
+                    <h:link value="Détails" outcome="factureDetail" styleClass="action-link">
+                        <i class="fas fa-eye"></i> Détails
+                        <f:param name="id" value="#{facture.id}" />
+                    </h:link>
+                    <h:link value="PDF" outcome="facturePdf" styleClass="action-link" rendered="#{facture.etat == 'PAYEE'}">
+                        <i class="fas fa-file-pdf"></i> PDF
+                        <f:param name="id" value="#{facture.id}" />
+                    </h:link>
+                </h:column>
+            </h:dataTable>
+            
+            <h:outputText value="Aucune facture disponible pour le moment." rendered="#{empty factureBean.userFactures}" styleClass="no-invoices" />
+        </h:form>
+        
+        <div class="footer-actions">
+            <h:form>
+                <h:commandButton value="Se déconnecter" action="#{loginBean.logout}" styleClass="btn btn-danger">
+                    <i class="fas fa-sign-out-alt"></i> Se déconnecter
+                </h:commandButton>
+            </h:form>
+        </div>
+    </div>
+</h:body>
+</html>
