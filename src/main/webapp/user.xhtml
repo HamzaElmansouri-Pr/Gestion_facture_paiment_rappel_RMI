@@ -97,7 +97,6 @@
                 </h:column>
                 <h:column styleClass="actions-col">
                     <f:facet name="header">Actions</f:facet>
-                    <h:commandButton value="Payer" action="#" styleClass="btn btn-pay" rendered="#{facture.etat ne 'Payé'}" />
                     <h:link value="Détail" outcome="factureDetail" styleClass="btn">
                         <f:param name="id" value="#{facture.id}" />
                     </h:link>
