@@ -4,6 +4,9 @@
         <jta-data-source>jdbc/facture_db</jta-data-source>
         <class>com.example.entities.Utilisateur</class>
         <class>com.example.entities.Client</class>
+        <class>com.example.entities.Facture</class>
+        <class>com.example.entities.LigneFacture</class>
+        <class>com.example.entities.Article</class>
         <properties>
             <property name="jakarta.persistence.schema-generation.database.action" value="none"/>
         </properties>

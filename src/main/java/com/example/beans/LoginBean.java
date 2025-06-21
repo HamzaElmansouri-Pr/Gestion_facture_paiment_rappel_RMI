@@ -22,7 +22,11 @@ public class LoginBean implements Serializable {
     public String login() {
         utilisateur = utilisateurFacade.findByUsernameAndPassword(username, password);
         if (utilisateur != null) {
-            return "dashboard?faces-redirect=true";
+            if (utilisateur.getRole() == Utilisateur.Role.USER) {
+                return "user?faces-redirect=true";
+            } else {
+                return "dashboard?faces-redirect=true";
+            }
         } else {
             return "login?faces-redirect=true";
         }

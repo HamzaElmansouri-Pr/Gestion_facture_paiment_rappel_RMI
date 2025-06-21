@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Espace Utilisateur</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            padding: 32px 40px 40px 40px;
+        }
+        h1 {
+            color: #1976d2;
+            margin-bottom: 18px;
+            text-align: center;
+        }
+        .bienvenue {
+            color: #2d3e50;
+            font-size: 1.2em;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+        .facture-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 32px;
+        }
+        .facture-table th, .facture-table td {
+            padding: 12px 10px;
+            border-bottom: 1px solid #e0e0e0;
+            text-align: left;
+        }
+        .facture-table th {
+            background: #f0f4f8;
+            color: #2d3e50;
+        }
+        .facture-table tr:hover {
+            background: #f9fafb;
+        }
+        .btn {
+            background: #1976d2;
+            color: #fff;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 4px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-left: 8px;
+            transition: background 0.2s;
+        }
+        .btn:hover {
+            background: #125ea2;
+        }
+        .btn-pay {
+            background: #43a047;
+        }
+        .btn-pay:hover {
+            background: #2e7031;
+        }
+        .actions-col {
+            white-space: nowrap;
+        }
+    </style>
+</h:head>
+<h:body>
+    <div class="container">
+        <h1>Espace Utilisateur</h1>
+        <div class="bienvenue">
+            Bienvenue, <b>#{not empty factureBean.userFactures ? factureBean.userFactures[0].client.nom : ''}</b> !
+        </div>
+        <h2 style="color:#1976d2; margin-bottom:16px;">Mes Factures</h2>
+        <h:form>
+            <h:dataTable value="#{factureBean.userFactures}" var="facture" styleClass="facture-table">
+                <h:column>
+                    <f:facet name="header">ID</f:facet>
+                    #{facture.id}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Date</f:facet>
+                    <h:outputText value="#{facture.dateFacture}">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">État</f:facet>
+                    #{facture.etat}
+                </h:column>
+                <h:column styleClass="actions-col">
+                    <f:facet name="header">Actions</f:facet>
+                    <h:commandButton value="Payer" action="#" styleClass="btn btn-pay" rendered="#{facture.etat ne 'Payé'}" />
+                    <h:link value="Détail" outcome="factureDetail" styleClass="btn">
+                        <f:param name="id" value="#{facture.id}" />
+                    </h:link>
+                </h:column>
+            </h:dataTable>
+            <h:outputText value="Aucune facture trouvée." rendered="#{empty factureBean.userFactures}" style="color:#888; font-style:italic;" />
+        </h:form>
+        <h:form>
+            <h:commandButton value="Se déconnecter" action="#{loginBean.logout}" styleClass="btn" />
+        </h:form>
+    </div>
+</h:body>
+</html> 
