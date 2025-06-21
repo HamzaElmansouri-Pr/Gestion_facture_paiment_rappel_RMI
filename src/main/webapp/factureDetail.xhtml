@@ -35,8 +35,8 @@
         <h2>Lignes de la Facture</h2>
         <h:dataTable value="#{factureDetailBean.facture.lignes}" var="ligne" styleClass="styled-table">
             <h:column>
-                <f:facet name="header">Article ID</f:facet>
-                #{ligne.articleId}
+                <f:facet name="header">Référence Article</f:facet>
+                #{ligne.article.reference}
             </h:column>
             <h:column>
                 <f:facet name="header">Quantité</f:facet>
@@ -50,6 +50,9 @@
             </h:column>
         </h:dataTable>
 
+        <h:form>
+            <h:commandButton value="Payer (PDF)" action="#{factureDetailBean.generatePdf}" />
+        </h:form>
         <h:form>
             <h:commandButton value="Retour" action="user.xhtml?faces-redirect=true" styleClass="btn" />
         </h:form>

@@ -31,4 +31,8 @@ public class FactureFacade {
             return null;
         }
     }
+
+    public void update(Facture facture) {
+        em.merge(facture);
+    }
 } 

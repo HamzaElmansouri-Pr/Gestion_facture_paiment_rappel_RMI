@@ -31,4 +31,8 @@ public class UtilisateurFacade {
             return false;
         }
     }
+
+    public void create(Utilisateur utilisateur) {
+        em.persist(utilisateur);
+    }
 }
