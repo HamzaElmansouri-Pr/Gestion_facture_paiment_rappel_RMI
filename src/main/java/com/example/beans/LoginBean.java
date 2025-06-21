@@ -35,7 +35,7 @@ public class LoginBean implements Serializable {
         password = null;
         return "login?faces-redirect=true";
     }
-    // Getters & skdjv
+    // Getters & skdjvkejzhvnzek,
 
     // Getters & Setters
     public String getUsername() { return username; }
