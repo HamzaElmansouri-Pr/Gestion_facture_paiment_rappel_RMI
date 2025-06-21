@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="jakarta.faces.facelets">
+    <h:head>
+        <title>Gestion des Articles</title>
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" 
+              rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+        <style>
+            :root {
+                --primary: #4361ee;
+                --primary-light: #eef2ff;
+                --secondary: #3a0ca3;
+                --accent-1: #e46569;
+                --accent-2: #ecaf81;
+                --accent-3: #60b8d4;
+                --accent-4: #3745b5;
+                --success: #4cc9f0;
+                --danger: #f72585;
+                --warning: #f8961e;
+                --info: #4895ef;
+                --dark: #212529;
+                --light: #f8f9fa;
+                --gray: #6c757d;
+                --gray-light: #e9ecef;
+            }
+            
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            
+            body {
+                font-family: 'Inter', 'Raleway', sans-serif;
+                background-color: #f5f7fa;
+                color: var(--dark);
+                line-height: 1.6;
+                padding: 20px;
+            }
+            
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                background: rgba(255, 255, 255, 0.95);
+                border-radius: 12px;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+                padding: 2rem;
+                backdrop-filter: blur(5px);
+            }
+            
+            .header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 2rem;
+                padding-bottom: 1rem;
+                border-bottom: 1px solid var(--gray-light);
+            }
+            
+            .page-title {
+                font-size: 1.75rem;
+                font-weight: 700;
+                background: linear-gradient(135deg, var(--primary) 0%, var(--accent-4) 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+            
+            .btn {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0.6rem 1.25rem;
+                border-radius: 8px;
+                font-weight: 500;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                border: none;
+                text-decoration: none;
+                font-size: 0.9rem;
+            }
+            
+            .btn-primary {
+                background: linear-gradient(135deg, var(--primary) 0%, var(--accent-4) 100%);
+                color: white;
+            }
+            
+            .btn-primary:hover {
+                background: linear-gradient(135deg, var(--accent-4) 0%, var(--primary) 100%);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(55, 69, 181, 0.2);
+            }
+            
+            .btn-back {
+                background: var(--gray-light);
+                color: var(--dark);
+            }
+            
+            .btn-back:hover {
+                background: var(--gray);
+                color: white;
+            }
+            
+            .form-container {
+                background: var(--light);
+                padding: 1.5rem;
+                border-radius: 8px;
+                margin-bottom: 2rem;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            }
+            
+            .panelGrid {
+                width: 100%;
+            }
+            
+            .outputLabel {
+                font-weight: 500;
+                color: var(--dark);
+                margin-right: 1rem;
+            }
+            
+            .inputText {
+                width: 100%;
+                padding: 0.75rem;
+                border: 1px solid var(--gray-light);
+                border-radius: 4px;
+                font-family: inherit;
+                margin-bottom: 1rem;
+            }
+            
+            .commandButton {
+                margin-top: 1rem;
+            }
+            
+            .data-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 2rem;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            }
+            
+            .data-table th {
+                background: var(--primary-light);
+                color: var(--primary);
+                padding: 1rem;
+                text-align: left;
+                font-weight: 600;
+                text-transform: uppercase;
+                font-size: 0.8rem;
+                letter-spacing: 0.5px;
+            }
+            
+            .data-table td {
+                padding: 1rem;
+                border-bottom: 1px solid var(--gray-light);
+            }
+            
+            .data-table tr:hover {
+                background: var(--primary-light);
+            }
+            
+            .action-link {
+                color: var(--primary);
+                text-decoration: none;
+                margin: 0 0.5rem;
+                transition: color 0.2s;
+            }
+            
+            .action-link:hover {
+                color: var(--accent-4);
+                text-decoration: underline;
+            }
+            
+            .action-link.delete {
+                color: var(--danger);
+            }
+            
+            .action-link.delete:hover {
+                color: #d1145a;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <div class="container">
+            <div class="header">
+                <h1 class="page-title">Gestion des Articles</h1>
+                <h:link outcome="dashboard.xhtml" styleClass="btn btn-back">
+                    <i class="fas fa-arrow-left"></i> Retour au Dashboard
+                </h:link>
+            </div>
+            
+            <div class="form-container">
+                <h:form>
+                    <h:panelGrid columns="2" cellpadding="5" styleClass="panelGrid">
+                        <h:outputLabel for="ref" value="Référence:" styleClass="outputLabel" />
+                        <h:inputText id="ref" value="#{articleBean.article.reference}" required="true" styleClass="inputText" />
+                        
+                        <h:outputLabel for="prix" value="Prix:" styleClass="outputLabel" />
+                        <h:inputText id="prix" value="#{articleBean.article.prix}" required="true" styleClass="inputText" />
+                        
+                        <h:panelGroup />
+                        <h:commandButton value="Enregistrer" action="#{articleBean.save}" styleClass="btn btn-primary commandButton" />
+                    </h:panelGrid>
+                </h:form>
+            </div>
+            
+            <h:form>
+                <h:dataTable value="#{articleBean.articles}" var="a" styleClass="data-table">
+                    <h:column>
+                        <f:facet name="header">ID</f:facet>
+                        #{a.id}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Référence</f:facet>
+                        #{a.reference}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Prix</f:facet>
+                        #{a.prix} MAD
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Actions</f:facet>
+                        <h:commandLink value="Modifier" action="#{articleBean.edit(a)}" styleClass="action-link" />
+                        <h:commandLink value="Supprimer" action="#{articleBean.delete(a)}" 
+                                       onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?');"
+                                       styleClass="action-link delete" />
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+        </div>
+    </h:body>
+</html>

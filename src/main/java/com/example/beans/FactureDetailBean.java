@@ -66,6 +66,7 @@ public class FactureDetailBean implements Serializable {
 
             document.add(new Paragraph("Facture #" + facture.getId()));
             document.add(new Paragraph("Date: " + facture.getDateFacture()));
+            document.add(new Paragraph("Client: " + facture.getClient().getNom()));
             document.add(new Paragraph(" "));
 
             PdfPTable table = new PdfPTable(4);
