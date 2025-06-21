@@ -21,4 +21,18 @@ public class UtilisateurFacade {
             return null;
         }
     }
+
+    public boolean testConnection() {
+        try {
+            em.createNativeQuery("SELECT 1").getSingleResult();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public void create(Utilisateur utilisateur) {
+        em.persist(utilisateur);
+    }
 }

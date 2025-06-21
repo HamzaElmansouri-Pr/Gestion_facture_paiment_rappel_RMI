@@ -1,10 +1,10 @@
 package com.example.beans;
 
 import com.example.entities.Client;
+import com.example.sessions.ClientFacade;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import com.example.sessions.ClientFacade;
 import java.io.Serializable;
 import java.util.List;
 
@@ -15,28 +15,28 @@ public class ClientBean implements Serializable {
     private Client client = new Client();
 
     @Inject
-    private ClientFacade clientDAO;
+    private ClientFacade clientFacade;
 
     public List<Client> getClients() {
-        return clientDAO.findAll();
+        return clientFacade.findAll();
     }
 
     public String save() {
         if (client.getId() == 0) {
-            clientDAO.create(client);
+            clientFacade.create(client);
         } else {
-            clientDAO.update(client);
+            clientFacade.update(client);
         }
-        client = new Client(); // Reset form
-        return "client.xhtml?faces-redirect=true";
+        client = new Client(); // Reset
+        return "clients.xhtml?faces-redirect=true";
     }
 
-    public void edit(Client a) {
-        this.client = a;
+    public void edit(Client c) {
+        this.client = c;
     }
 
-    public void delete(Client a) {
-        clientDAO.delete(a);
+    public void delete(Client c) {
+        clientFacade.delete(c);
     }
 
     public Client getClient() { return client; }

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Créer Facture</title>
+</h:head>
+<h:body>
+    <h1>Nouvelle Facture</h1>
+
+    <h:form>
+        <h:panelGrid columns="2">
+            Client:
+            <h:selectOneMenu value="#{factureBean.clientId}" required="true">
+                <f:selectItem itemLabel="-- Sélectionnez --" itemValue="" />
+                <f:selectItems value="#{factureBean.clients}" var="c"
+                               itemLabel="#{c.nom}" itemValue="#{c.id}" />
+            </h:selectOneMenu>
+
+            Article:
+            <h:selectOneMenu value="#{factureBean.articleId}" required="true">
+                <f:selectItem itemLabel="-- Sélectionnez --" itemValue="" />
+                <f:selectItems value="#{factureBean.articles}" var="a"
+                               itemLabel="#{a.reference}" itemValue="#{a.id}" />
+            </h:selectOneMenu>
+
+            Quantité:
+            <h:inputText value="#{factureBean.quantite}" required="true" />
+
+            <h:commandButton value="Ajouter Article" action="#{factureBean.ajouterLigne}" />
+        </h:panelGrid>
+    </h:form>
+
+    <h:dataTable value="#{factureBean.facture.lignes}" var="l" border="1">
+    <h:column>
+        <f:facet name="header">Article</f:facet>
+        #{l.article.reference}
+    </h:column>
+    <h:column>
+        <f:facet name="header">Quantité</f:facet>
+        #{l.quantite}
+    </h:column>
+    <h:column>
+        <f:facet name="header">Sous-total</f:facet>
+        <h:outputText value="#{l.sousTotal}">
+            <f:convertNumber pattern="#0.00" />
+        </h:outputText>
+    </h:column>
+    <h:column>
+        <f:facet name="header">Supprimer</f:facet>
+        <h:form>
+            <h:commandButton value="X" action="#{factureBean.supprimerLigne(l)}" />
+        </h:form>
+    </h:column>
+</h:dataTable>
+
+
+    <h3>Total : #{factureBean.montantTotal} DH</h3>
+
+    <h:form>
+        <h:commandButton value="Enregistrer Facture" action="#{factureBean.enregistrer}" />
+    </h:form>
+</h:body>
+</html>

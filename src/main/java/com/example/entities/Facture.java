@@ -1,46 +1,33 @@
 package com.example.entities;
 
 import jakarta.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "facture")
-public class Facture implements Serializable {
+public class Facture {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "client_id")
+    @ManyToOne
+    @JoinColumn(name="client_id", nullable = false)
     private Client client;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "date_facture", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "date_facture", insertable = false, updatable = false)
     private Date dateFacture;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private EtatFacture etat = EtatFacture.NON_PAYEE;
+    @Column(nullable = false, insertable = false)
+    private Etat etat;
 
-    public enum EtatFacture {
-        PAYEE("Payée"),
-        NON_PAYEE("Non Payée");
+    @OneToMany(mappedBy = "facture", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<LigneFacture> lignes;
 
-        private final String label;
-
-        EtatFacture(String label) {
-            this.label = label;
-        }
-
-        @Override
-        public String toString() {
-            return label;
-        }
-    }
-
-    // Getters et Setters
+    // Getters & Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
@@ -48,8 +35,9 @@ public class Facture implements Serializable {
     public void setClient(Client client) { this.client = client; }
 
     public Date getDateFacture() { return dateFacture; }
-    public void setDateFacture(Date dateFacture) { this.dateFacture = dateFacture; }
 
-    public EtatFacture getEtat() { return etat; }
-    public void setEtat(EtatFacture etat) { this.etat = etat; }
+    public Etat getEtat() { return etat; }
+
+    public List<LigneFacture> getLignes() { return lignes; }
+    public void setLignes(List<LigneFacture> lignes) { this.lignes = lignes; }
 }

@@ -1,3 +1,4 @@
+
 package com.example.sessions;
 
 import com.example.entities.Article;
@@ -9,7 +10,7 @@ import java.util.List;
 @Stateless
 public class ArticleFacade {
 
-    @PersistenceContext(unitName = "facture_dbPU")
+    @PersistenceContext(unitName = "facture_dbPU")  
     private EntityManager em;
 
     public void create(Article article) {
@@ -30,10 +31,5 @@ public class ArticleFacade {
 
     public List<Article> findAll() {
         return em.createQuery("SELECT a FROM Article a", Article.class).getResultList();
-    }
-    
-    // Méthode manquante pour compter les articles
-    public long countArticles() {
-        return em.createQuery("SELECT COUNT(a) FROM Article a", Long.class).getSingleResult();
     }
 }

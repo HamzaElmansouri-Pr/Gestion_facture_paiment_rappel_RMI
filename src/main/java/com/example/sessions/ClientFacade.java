@@ -9,7 +9,7 @@ import java.util.List;
 @Stateless
 public class ClientFacade {
 
-    @PersistenceContext(unitName = "facture_dbPU")  
+    @PersistenceContext(unitName = "facture_dbPU")
     private EntityManager em;
 
     public void create(Client client) {
@@ -30,8 +30,5 @@ public class ClientFacade {
 
     public List<Client> findAll() {
         return em.createQuery("SELECT c FROM Client c", Client.class).getResultList();
-    }
-       public long countClients() {
-        return em.createQuery("SELECT COUNT(c) FROM Client c", Long.class).getSingleResult();
     }
 }

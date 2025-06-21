@@ -1,4 +1,5 @@
 package com.example.entities;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -9,15 +10,12 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(nullable = false)
     private String nom;
-    private String email;
-    private String adresse;
-    private String telephone;
-    
-    @Column(name = "id_user", nullable = false)
-    private int idUser;
 
-    // Getters & Setters
+    private String email;
+
+    // Getters & setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
@@ -26,13 +24,4 @@ public class Client {
 
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
-
-    public String getAdresse() { return adresse; }
-    public void setAdresse(String adresse) { this.adresse = adresse; }
-
-    public String getTelephone() { return telephone; }
-    public void setTelephone(String telephone) { this.telephone = telephone; }
-    
-    public int getIdUser() { return idUser; }
-    public void setIdUser(int idUser) { this.idUser = idUser; }
 }
