@@ -24,7 +24,7 @@ public class RecallScheduler {
     @Inject
     private EmailService emailService;
 
-    @Schedule(minute = "*/1", hour = "*", persistent = false)
+    @Schedule(minute = "0", hour = "4", persistent = false)
     public void sendRecallEmails() {
         try {
             System.out.println("Scheduler running at: " + LocalDate.now());
