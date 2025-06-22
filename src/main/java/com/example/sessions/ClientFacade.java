@@ -38,4 +38,6 @@ public class ClientFacade {
                  .setParameter("utilisateur", utilisateur)
                  .getSingleResult();
     }
+    public long countClients() {
+        return em.createQuery("SELECT COUNT(c) FROM Client c", Long.class).getSingleResult();}
 }

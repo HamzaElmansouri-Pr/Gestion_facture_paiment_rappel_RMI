@@ -2,6 +2,7 @@ C:\Users\ELMA\OneDrive\Bureau\sdr\sdr\src\main\java\com\example\sessions\ClientF
 C:\Users\ELMA\OneDrive\Bureau\sdr\sdr\src\main\java\com\mycompany\sdr\resources\JakartaEE10Resource.java
 C:\Users\ELMA\OneDrive\Bureau\sdr\sdr\src\main\java\com\example\sessions\UtilisateurFacade.java
 C:\Users\ELMA\OneDrive\Bureau\sdr\sdr\src\main\java\com\example\beans\FactureBean.java
+C:\Users\ELMA\OneDrive\Bureau\sdr\sdr\src\main\java\com\example\entities\Etat.java
 C:\Users\ELMA\OneDrive\Bureau\sdr\sdr\src\main\java\com\example\sessions\FactureFacade.java
 C:\Users\ELMA\OneDrive\Bureau\sdr\sdr\src\main\java\com\example\beans\ClientBean.java
 C:\Users\ELMA\OneDrive\Bureau\sdr\sdr\src\main\java\com\example\entities\Client.java
@@ -11,6 +12,9 @@ C:\Users\ELMA\OneDrive\Bureau\sdr\sdr\src\main\java\com\example\entities\Article
 C:\Users\ELMA\OneDrive\Bureau\sdr\sdr\src\main\java\com\example\beans\ArticleBean.java
 C:\Users\ELMA\OneDrive\Bureau\sdr\sdr\src\main\java\com\example\beans\LoginBean.java
 C:\Users\ELMA\OneDrive\Bureau\sdr\sdr\src\main\java\com\example\sessions\ArticleFacade.java
+C:\Users\ELMA\OneDrive\Bureau\sdr\sdr\src\main\java\EmailService.java
 C:\Users\ELMA\OneDrive\Bureau\sdr\sdr\src\main\java\com\example\entities\LigneFacture.java
+C:\Users\ELMA\OneDrive\Bureau\sdr\sdr\src\main\java\com\example\beans\DashboardBean.java
 C:\Users\ELMA\OneDrive\Bureau\sdr\sdr\src\main\java\com\example\entities\Facture.java
 C:\Users\ELMA\OneDrive\Bureau\sdr\sdr\src\main\java\com\example\entities\Utilisateur.java
+C:\Users\ELMA\OneDrive\Bureau\sdr\sdr\src\main\java\com\example\sessions\RecallScheduler.java

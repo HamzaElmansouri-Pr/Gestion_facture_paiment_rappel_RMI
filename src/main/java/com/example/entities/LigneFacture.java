@@ -36,4 +36,11 @@ public class LigneFacture {
 
     public double getPrix() { return prix; }
     public void setPrix(double prix) { this.prix = prix; }
+    
+    public double getSousTotal() {
+        if (article == null || quantite <= 0) {
+            return 0.0;
+        }
+        return prix * quantite;
+    }
 }

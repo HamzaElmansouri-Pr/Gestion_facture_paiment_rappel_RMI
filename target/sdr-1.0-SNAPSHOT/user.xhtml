@@ -1,72 +1,192 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <h:head>
     <title>Espace Utilisateur</title>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" 
+          rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <style>
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: #f4f6f8;
+        :root {
+            --primary: #4361ee;
+            --primary-light: #eef2ff;
+            --secondary: #3a0ca3;
+            --accent-1: #e46569;
+            --accent-2: #ecaf81;
+            --accent-3: #60b8d4;
+            --accent-4: #3745b5;
+            --success: #4cc9f0;
+            --danger: #f72585;
+            --warning: #f8961e;
+            --info: #4895ef;
+            --dark: #212529;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --gray-light: #e9ecef;
+        }
+        
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
+        
+        body {
+            font-family: 'Inter', 'Raleway', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
         .container {
-            max-width: 900px;
-            margin: 40px auto;
-            background: #fff;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            padding: 2rem;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--gray-light);
+        }
+        
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent-4) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .welcome-message {
+            color: var(--gray);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            background: var(--primary-light);
+            padding: 1rem;
             border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            padding: 32px 40px 40px 40px;
+            border-left: 4px solid var(--primary);
         }
-        h1 {
-            color: #1976d2;
-            margin-bottom: 18px;
-            text-align: center;
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.6rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            text-decoration: none;
+            font-size: 0.9rem;
         }
-        .bienvenue {
-            color: #2d3e50;
-            font-size: 1.2em;
-            margin-bottom: 32px;
-            text-align: center;
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent-4) 100%);
+            color: white;
         }
-        .facture-table {
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--accent-4) 0%, var(--primary) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(55, 69, 181, 0.2);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger) 0%, var(--accent-1) 100%);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background: linear-gradient(135deg, var(--accent-1) 0%, var(--danger) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(244, 143, 177, 0.2);
+        }
+        
+        .data-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 32px;
+            margin-top: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
-        .facture-table th, .facture-table td {
-            padding: 12px 10px;
-            border-bottom: 1px solid #e0e0e0;
+        
+        .data-table th {
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 1rem;
             text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
         }
-        .facture-table th {
-            background: #f0f4f8;
-            color: #2d3e50;
+        
+        .data-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--gray-light);
         }
-        .facture-table tr:hover {
-            background: #f9fafb;
+        
+        .data-table tr:hover {
+            background: var(--primary-light);
         }
-        .btn {
-            background: #1976d2;
-            color: #fff;
-            border: none;
-            padding: 8px 18px;
-            border-radius: 4px;
-            font-size: 1em;
-            cursor: pointer;
-            margin-left: 8px;
-            transition: background 0.2s;
+        
+        .action-link {
+            color: var(--primary);
+            text-decoration: none;
+            margin: 0 0.5rem;
+            transition: color 0.2s;
+            font-weight: 500;
         }
-        .btn:hover {
-            background: #125ea2;
+        
+        .action-link:hover {
+            color: var(--accent-4);
+            text-decoration: underline;
         }
-        .btn-pay {
-            background: #43a047;
+        
+        .status {
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            display: inline-block;
+            min-width: 80px;
+            text-align: center;
         }
-        .btn-pay:hover {
-            background: #2e7031;
+        
+        .status.paid {
+            background: rgba(40, 167, 69, 0.1);
+            color: #28a745;
         }
+        
+        .status.pending {
+            background: rgba(253, 126, 20, 0.1);
+            color: #fd7e14;
+        }
+        
+        .no-invoices {
+            text-align: center;
+            color: var(--gray);
+            font-style: italic;
+            padding: 2rem;
+            background: var(--light);
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        
         .actions-col {
             white-space: nowrap;
         }
@@ -74,13 +194,18 @@
 </h:head>
 <h:body>
     <div class="container">
-        <h1>Espace Utilisateur</h1>
-        <div class="bienvenue">
+        <div class="header">
+            <h1 class="page-title">Espace Utilisateur</h1>
+        </div>
+        
+        <div class="welcome-message">
             Bienvenue, <b>#{not empty factureBean.userFactures ? factureBean.userFactures[0].client.nom : ''}</b> !
         </div>
-        <h2 style="color:#1976d2; margin-bottom:16px;">Mes Factures</h2>
+        
+        <h2 style="color: var(--primary); margin-bottom: 1rem; font-size: 1.3rem;">Mes Factures</h2>
+        
         <h:form>
-            <h:dataTable value="#{factureBean.userFactures}" var="facture" styleClass="facture-table">
+            <h:dataTable value="#{factureBean.userFactures}" var="facture" styleClass="data-table">
                 <h:column>
                     <f:facet name="header">ID</f:facet>
                     #{facture.id}
@@ -93,20 +218,29 @@
                 </h:column>
                 <h:column>
                     <f:facet name="header">État</f:facet>
-                    #{facture.etat}
+                    <span class="status #{facture.etat == 'PAYEE' ? 'paid' : 'pending'}">
+                        #{facture.etat}
+                    </span>
                 </h:column>
                 <h:column styleClass="actions-col">
                     <f:facet name="header">Actions</f:facet>
-                    <h:link value="Détail" outcome="factureDetail" styleClass="btn">
+                    <h:link value="" outcome="factureDetail" styleClass="action-link">
+                        <i class="fas fa-eye"></i> Détail
                         <f:param name="id" value="#{facture.id}" />
                     </h:link>
                 </h:column>
             </h:dataTable>
-            <h:outputText value="Aucune facture trouvée." rendered="#{empty factureBean.userFactures}" style="color:#888; font-style:italic;" />
+            
+            <h:outputText value="Aucune facture trouvée." rendered="#{empty factureBean.userFactures}" styleClass="no-invoices" />
         </h:form>
-        <h:form>
-            <h:commandButton value="Se déconnecter" action="#{loginBean.logout}" styleClass="btn" />
-        </h:form>
+        
+        <div style="text-align: center; margin-top: 2rem;">
+            <h:form>
+                <h:commandButton value="Se déconnecter" action="#{loginBean.logout}" styleClass="btn btn-danger">
+                    <i class="fas fa-sign-out-alt"></i> Se déconnecter
+                </h:commandButton>
+            </h:form>
+        </div>
     </div>
 </h:body>
 </html> 
