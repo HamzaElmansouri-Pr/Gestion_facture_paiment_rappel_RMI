@@ -7,7 +7,9 @@ com\example\beans\ClientBean.class
 com\example\sessions\FactureFacade.class
 com\example\sessions\ArticleFacade.class
 com\mycompany\sdr\JakartaRestConfiguration.class
+com\example\entities\Etat.class
 com\example\sessions\UtilisateurFacade.class
+com\example\beans\DashboardBean.class
 com\mycompany\sdr\resources\JakartaEE10Resource.class
 com\example\entities\Utilisateur$Role.class
 com\example\beans\LoginBean.class
@@ -15,3 +17,5 @@ com\example\sessions\ClientFacade.class
 com\example\entities\Facture.class
 com\example\beans\FactureBean.class
 com\example\beans\ArticleBean.class
+com\example\sessions\EmailService.class
+com\example\sessions\RecallScheduler.class

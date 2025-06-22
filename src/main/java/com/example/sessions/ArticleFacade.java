@@ -31,4 +31,7 @@ public class ArticleFacade {
     public List<Article> findAll() {
         return em.createQuery("SELECT a FROM Article a", Article.class).getResultList();
     }
+    public long countArticles() {
+        return em.createQuery("SELECT COUNT(a) FROM Article a", Long.class).getSingleResult();
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.beans;
 
 import com.example.entities.Facture;
+import com.example.entities.Etat;
 import com.example.sessions.FactureFacade;
 import com.lowagie.text.*;
 import com.lowagie.text.pdf.*;
@@ -49,8 +50,8 @@ public class FactureDetailBean implements Serializable {
     public void generatePdf() {
         try {
             // Set status to 'Payé' and persist
-            if (facture != null && (facture.getEtat() == null || !facture.getEtat().equals("Payé"))) {
-                facture.setEtat("Payé");
+            if (facture != null && facture.getEtat() != Etat.PAYEE) {
+                facture.setEtat(Etat.PAYEE);
                 factureFacade.update(facture);
             }
 

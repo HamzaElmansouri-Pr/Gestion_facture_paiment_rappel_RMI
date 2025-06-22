@@ -4,7 +4,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="jakarta.faces.facelets">
     <h:head>
-        <title>Gestion des Articles</title>
+        <title>Liste des Factures</title>
         <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" 
               rel="stylesheet" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
@@ -105,37 +105,6 @@
                 color: white;
             }
             
-            .form-container {
-                background: var(--light);
-                padding: 1.5rem;
-                border-radius: 8px;
-                margin-bottom: 2rem;
-                box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            }
-            
-            .panelGrid {
-                width: 100%;
-            }
-            
-            .outputLabel {
-                font-weight: 500;
-                color: var(--dark);
-                margin-right: 1rem;
-            }
-            
-            .inputText {
-                width: 100%;
-                padding: 0.75rem;
-                border: 1px solid var(--gray-light);
-                border-radius: 4px;
-                font-family: inherit;
-                margin-bottom: 1rem;
-            }
-            
-            .commandButton {
-                margin-top: 1rem;
-            }
-            
             .data-table {
                 width: 100%;
                 border-collapse: collapse;
@@ -174,63 +143,47 @@
                 color: var(--accent-4);
                 text-decoration: underline;
             }
-            
-            .action-link.delete {
-                color: var(--danger);
-            }
-            
-            .action-link.delete:hover {
-                color: #d1145a;
-            }
         </style>
     </h:head>
     <h:body>
         <div class="container">
             <div class="header">
-                <h1 class="page-title">Gestion des Articles</h1>
+                <h1 class="page-title">Liste des Factures</h1>
                 <h:link outcome="dashboard.xhtml" styleClass="btn btn-back">
                     <i class="fas fa-arrow-left"></i> Retour au Dashboard
                 </h:link>
             </div>
             
-            <div class="form-container">
-                <h:form>
-                    <h:panelGrid columns="2" cellpadding="5" styleClass="panelGrid">
-                        <h:outputLabel for="ref" value="Référence:" styleClass="outputLabel" />
-                        <h:inputText id="ref" value="#{articleBean.article.reference}" required="true" styleClass="inputText" />
-                        
-                        <h:outputLabel for="prix" value="Prix:" styleClass="outputLabel" />
-                        <h:inputText id="prix" value="#{articleBean.article.prix}" required="true" styleClass="inputText" />
-                        
-                        <h:panelGroup />
-                        <h:commandButton value="Enregistrer" action="#{articleBean.save}" styleClass="btn btn-primary commandButton" />
-                    </h:panelGrid>
-                </h:form>
-            </div>
-            
-            <h:form>
-                <h:dataTable value="#{articleBean.articles}" var="a" styleClass="data-table">
-                    <h:column>
-                        <f:facet name="header">ID</f:facet>
-                        #{a.id}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Référence</f:facet>
-                        #{a.reference}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Prix</f:facet>
-                        #{a.prix} MAD
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Actions</f:facet>
-                        <h:commandLink value="Modifier" action="#{articleBean.edit(a)}" styleClass="action-link" />
-                        <h:commandLink value="Supprimer" action="#{articleBean.delete(a)}" 
-                                       onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?');"
-                                       styleClass="action-link delete" />
-                    </h:column>
-                </h:dataTable>
-            </h:form>
+            <h:dataTable value="#{factureBean.factures}" var="f" styleClass="data-table">
+                <h:column>
+                    <f:facet name="header">ID</f:facet>
+                    #{f.id}
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">Client</f:facet>
+                    #{f.client.nom}
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">Date</f:facet>
+                    <h:outputText value="#{f.dateFacture}">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:outputText>
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">État</f:facet>
+                    #{f.etat}
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">Montant Total (DH)</f:facet>
+                    <h:outputText value="#{factureBean.calculerMontant(f)}">
+                        <f:convertNumber pattern="#0.00" />
+                    </h:outputText>
+                </h:column>
+            </h:dataTable>
         </div>
     </h:body>
 </html>

@@ -3,17 +3,154 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html">
 <h:head>
     <title>Connexion</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
+        
+        *,*:before,*:after{box-sizing:border-box;}
+        
+        body{
+            min-height:100vh;
+            font-family: 'Raleway', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        
+        .container{
+            position:absolute;
+            width:100%;
+            height:100%;
+            overflow:hidden;
+            cursor: pointer;
+        }
+        
+        .container:hover .top:before, 
+        .container:hover .top:after,
+        .container:hover .bottom:before, 
+        .container:hover .bottom:after{
+            margin-left: 200px;
+            transform-origin: -200px 50%;
+            transition-delay:0s;
+        }
+        
+        .container:hover .center{
+            opacity:1;
+            transition-delay:0.2s;
+        }
+        
+        .top:before, .top:after,
+        .bottom:before, .bottom:after{
+            content:'';
+            display:block;
+            position:absolute;
+            width:200vmax;
+            height:200vmax;
+            top:50%;
+            left:50%;
+            margin-top:-100vmax;
+            transform-origin: 0 50%;
+            transition:all 0.5s cubic-bezier(0.445, 0.05, 0, 1);
+            z-index:10;
+            opacity:0.65;
+            transition-delay:0.2s;
+        }
+        
+        .top:before{
+            transform:rotate(45deg);
+            background:#e46569;
+        }
+        
+        .top:after{
+            transform:rotate(135deg);
+            background:#ecaf81;
+        }
+        
+        .bottom:before{
+            transform:rotate(-45deg);
+            background:#60b8d4;
+        }
+        
+        .bottom:after{
+            transform:rotate(-135deg);
+            background:#3745b5;
+        }
+        
+        .center{
+            position:absolute;
+            width:400px;
+            height:400px;
+            top:50%;
+            left:50%;
+            margin-left:-200px;
+            margin-top:-200px;
+            display:flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding:30px;
+            opacity:0;
+            transition:all 0.5s cubic-bezier(0.445, 0.05, 0, 1);
+            transition-delay:0s;
+            color:#333;
+            z-index: 20;
+            background: rgba(255,255,255,0.9);
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .center h2 {
+            margin-bottom: 30px;
+            color: #333;
+        }
+        
+        .form-input {
+            width:100%;
+            padding:15px;
+            margin:5px;
+            border-radius:1px;
+            border:1px solid #ccc;
+            font-family:inherit;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            background: #4361ee;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        
+        .btn:hover {
+            background: #3a0ca3;
+        }
+        
+        .output-text {
+            margin-top: 15px;
+            text-align: center;
+        }
+    </style>
 </h:head>
 <h:body>
-    <h:form>
-        <h:outputLabel for="username" value="Nom d'utilisateur : " />
-        <h:inputText id="username" value="#{loginBean.username}" /><br/>
-
-        <h:outputLabel for="password" value="Mot de passe : " />
-        <h:inputSecret id="password" value="#{loginBean.password}" /><br/>
-<h:outputText value="JSF fonctionne !" />
-
-        <h:commandButton value="Connexion" action="#{loginBean.login}" />
-    </h:form>
+    <div class="container" onclick="void(0)">
+        <div class="top"></div>
+        <div class="bottom"></div>
+        <div class="center">
+            <h2>Please Sign In</h2>
+            <h:form>
+                <h:inputText id="username" value="#{loginBean.username}" 
+                             styleClass="form-input"  />
+                <h:inputSecret id="password" value="#{loginBean.password}" 
+                              styleClass="form-input" />
+                <h:commandButton value="Connexion" action="#{loginBean.login}" 
+                                styleClass="btn" />
+            </h:form>
+        </div>
+    </div>
 </h:body>
 </html>
